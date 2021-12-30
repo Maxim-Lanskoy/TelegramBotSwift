@@ -22,4 +22,5 @@ public enum MessageEntityType: String, Codable {
     case pre
     case textLink = "text_link"
     case textMention = "text_mention"
+    case spoiler
 }
