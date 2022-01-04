@@ -173,7 +173,8 @@ public class TelegramBot {
             contentType = "multipart/form-data; boundary=\(boundary)"
             requestDataOrNil = HTTPUtils.createMultipartFormDataBody(with: parameters, boundary: boundary)
             //try! requestDataOrNil!.write(to: URL(fileURLWithPath: "/tmp/dump.bin"))
-            if let message = (parameters["text"] ?? parameters["caption"]) as? String {
+            if var message = (parameters["text"] ?? parameters["caption"]) as? String {
+                message = message.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: "\n\n", with: "\n")
                 logger("endpoint: \(endpoint), text: \(message)")
             } else {
                 logger("endpoint: \(endpoint), sending parameters as multipart/form-data")
@@ -181,7 +182,8 @@ public class TelegramBot {
         } else {
             contentType = "application/x-www-form-urlencoded"
             if let encoded = HTTPUtils.formUrlencode(parameters) {
-                if let message = (parameters["text"] ?? parameters["caption"]) as? String {
+                if var message = (parameters["text"] ?? parameters["caption"]) as? String {
+                    message = message.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil).replacingOccurrences(of: "\n\n", with: "\n")
                     logger("endpoint: \(endpoint), text: \(message)")
                 } else {
                     logger("endpoint: \(endpoint), data: \(encoded)")
