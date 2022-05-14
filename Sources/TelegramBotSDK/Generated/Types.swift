@@ -15,6 +15,7 @@ public class Update: Codable {
     public var preCheckoutQuery: PreCheckoutQuery?
     public var poll: Poll?
     public var pollAnswer: PollAnswer?
+    
     public init(updateId: Int64, message: Message? = nil, editedMessage: Message? = nil, channelPost: Message? = nil, editedChannelPost: Message? = nil, inlineQuery: InlineQuery? = nil, chosenInlineResult: ChosenInlineResult? = nil, callbackQuery: CallbackQuery? = nil, shippingQuery: ShippingQuery? = nil, preCheckoutQuery: PreCheckoutQuery? = nil, poll: Poll? = nil, pollAnswer: PollAnswer? = nil) {
         self.updateId = updateId
         self.message = message
@@ -62,6 +63,7 @@ public class User: Codable {
     public var canJoinGroups: Bool?
     public var canReadAllGroupMessages: Bool?
     public var supportsInlineQueries: Bool?
+    
     public init(id: Int64, isBot: Bool, firstName: String, lastName: String? = nil, username: String? = nil, languageCode: String? = nil, canJoinGroups: Bool? = nil, canReadAllGroupMessages: Bool? = nil, supportsInlineQueries: Bool? = nil) {
         self.id = id
         self.isBot = isBot
@@ -91,6 +93,7 @@ public class Chat: Codable {
     public var slowModeDelay: Int?
     public var stickerSetName: String?
     public var canSetStickerSet: Bool?
+    
     public init(id: Int64, type: ChatType, title: String? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, photo: ChatPhoto? = nil, description: String? = nil, inviteLink: String? = nil, pinnedMessage: Message? = nil, permissions: ChatPermissions? = nil, slowModeDelay: Int? = nil, stickerSetName: String? = nil, canSetStickerSet: Bool? = nil) {
         self.id = id
         self.type = type
@@ -158,7 +161,9 @@ public class Message: Codable {
     public var successfulPayment: SuccessfulPayment?
     public var connectedWebsite: String?
     public var replyMarkup: InlineKeyboardMarkup?
-    public init(messageId: Int, from: User? = nil, date: Date, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Date? = nil, replyToMessage: Message? = nil, editDate: Date? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, dice: Dice? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int64? = nil, migrateFromChatId: Int64? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil) {
+    public var webAppData: WebAppData?
+    
+    public init(messageId: Int, from: User? = nil, date: Date, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Date? = nil, replyToMessage: Message? = nil, editDate: Date? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, dice: Dice? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int64? = nil, migrateFromChatId: Int64? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, webAppData: WebAppData? = nil) {
         self.messageId = messageId
         self.from = from
         self.date = date
@@ -206,6 +211,27 @@ public class Message: Codable {
         self.successfulPayment = successfulPayment
         self.connectedWebsite = connectedWebsite
         self.replyMarkup = replyMarkup
+        self.webAppData = webAppData
+    }
+}
+
+
+public class WebAppData: Codable {
+    public var data: String
+    public var buttonText: String
+    
+    public init(data: String, buttonText: String) {
+        self.data = data
+        self.buttonText = buttonText
+    }
+}
+
+
+public class WebAppInfo: Codable {
+    public var url: String
+    
+    public init(url: String) {
+        self.url = url
     }
 }
 
@@ -217,6 +243,7 @@ public class MessageEntity: Codable {
     public var url: String?
     public var user: User?
     public var language: String?
+    
     public init(type: MessageEntityType, offset: Int, length: Int, url: String? = nil, user: User? = nil, language: String? = nil) {
         self.type = type
         self.offset = offset
@@ -234,6 +261,7 @@ public class PhotoSize: Codable {
     public var width: Int
     public var height: Int
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, width: Int, height: Int, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -253,6 +281,7 @@ public class Audio: Codable {
     public var mimeType: String?
     public var fileSize: Int?
     public var thumb: PhotoSize?
+    
     public init(fileId: String, fileUniqueId: String, duration: Int, performer: String? = nil, title: String? = nil, mimeType: String? = nil, fileSize: Int? = nil, thumb: PhotoSize? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -273,6 +302,7 @@ public class Document: Codable {
     public var fileName: String?
     public var mimeType: String?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -293,6 +323,7 @@ public class Video: Codable {
     public var thumb: PhotoSize?
     public var mimeType: String?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -316,6 +347,7 @@ public class Animation: Codable {
     public var fileName: String?
     public var mimeType: String?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, width: Int, height: Int, duration: Int, thumb: PhotoSize? = nil, fileName: String? = nil, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -336,6 +368,7 @@ public class Voice: Codable {
     public var duration: Int
     public var mimeType: String?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, duration: Int, mimeType: String? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -353,6 +386,7 @@ public class VideoNote: Codable {
     public var duration: Int
     public var thumb: PhotoSize?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, length: Int, duration: Int, thumb: PhotoSize? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -370,6 +404,7 @@ public class Contact: Codable {
     public var lastName: String?
     public var userId: Int64?
     public var vcard: String?
+    
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, userId: Int64? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber
         self.firstName = firstName
@@ -406,6 +441,7 @@ public class Venue: Codable {
     public var address: String
     public var foursquareId: String?
     public var foursquareType: String?
+    
     public init(location: Location, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.location = location
         self.title = title
@@ -452,6 +488,7 @@ public class Poll: Codable {
     public var explanationEntities: [MessageEntity]? = []
     public var openPeriod: Int?
     public var closeDate: Date?
+    
     public init(id: String, question: String, options: [PollOption], totalVoterCount: Int, isClosed: Bool, isAnonymous: Bool, type: PollType, allowsMultipleAnswers: Bool, correctOptionId: Int? = nil, explanation: String? = nil, explanationEntities: [MessageEntity]? = nil, openPeriod: Int? = nil, closeDate: Date? = nil) {
         self.id = id
         self.question = question
@@ -485,6 +522,7 @@ public class File: Codable {
     public var fileUniqueId: String
     public var fileSize: Int?
     public var filePath: String?
+    
     public init(fileId: String, fileUniqueId: String, fileSize: Int? = nil, filePath: String? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -499,6 +537,7 @@ public class ReplyKeyboardMarkup: Codable {
     public var resizeKeyboard: Bool?
     public var oneTimeKeyboard: Bool?
     public var selective: Bool?
+    
     public init(keyboard: [[KeyboardButton]], resizeKeyboard: Bool? = nil, oneTimeKeyboard: Bool? = nil, selective: Bool? = nil) {
         self.keyboard = keyboard
         self.resizeKeyboard = resizeKeyboard
@@ -513,17 +552,21 @@ public class KeyboardButton: Codable {
     public var requestContact: Bool?
     public var requestLocation: Bool?
     public var requestPoll: KeyboardButtonPollType?
-    public init(text: String, requestContact: Bool? = nil, requestLocation: Bool? = nil, requestPoll: KeyboardButtonPollType? = nil) {
+    public var webApp: WebAppInfo?
+    
+    public init(text: String, requestContact: Bool? = nil, requestLocation: Bool? = nil, requestPoll: KeyboardButtonPollType? = nil, webApp: WebAppInfo? = nil) {
         self.text = text
         self.requestContact = requestContact
         self.requestLocation = requestLocation
         self.requestPoll = requestPoll
+        self.webApp = webApp
     }
 }
 
 
 public class KeyboardButtonPollType: Codable {
     public var type: PollType?
+    
     public init(type: PollType? = nil) {
         self.type = type
     }
@@ -533,6 +576,7 @@ public class KeyboardButtonPollType: Codable {
 public class ReplyKeyboardRemove: Codable {
     public var removeKeyboard: Bool
     public var selective: Bool?
+    
     public init(removeKeyboard: Bool, selective: Bool? = nil) {
         self.removeKeyboard = removeKeyboard
         self.selective = selective
@@ -557,7 +601,9 @@ public class InlineKeyboardButton: Codable {
     public var switchInlineQueryCurrentChat: String?
     public var callbackGame: CallbackGame?
     public var pay: Bool?
-    public init(text: String, url: String? = nil, loginUrl: LoginUrl? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil) {
+    public var webApp: WebAppInfo?
+    
+    public init(text: String, url: String? = nil, loginUrl: LoginUrl? = nil, callbackData: String? = nil, switchInlineQuery: String? = nil, switchInlineQueryCurrentChat: String? = nil, callbackGame: CallbackGame? = nil, pay: Bool? = nil, webApp: WebAppInfo? = nil) {
         self.text = text
         self.url = url
         self.loginUrl = loginUrl
@@ -566,6 +612,7 @@ public class InlineKeyboardButton: Codable {
         self.switchInlineQueryCurrentChat = switchInlineQueryCurrentChat
         self.callbackGame = callbackGame
         self.pay = pay
+        self.webApp = webApp
     }
 }
 
@@ -583,6 +630,7 @@ public class CallbackQuery: Codable {
     public var chatInstance: String
     public var data: String?
     public var gameShortName: String?
+    
     public init(id: String, from: User, message: Message? = nil, inlineMessageId: String? = nil, chatInstance: String, data: String? = nil, gameShortName: String? = nil) {
         self.id = id
         self.from = from
@@ -598,6 +646,7 @@ public class CallbackQuery: Codable {
 public class ForceReply: Codable {
     public var forceReply: Bool
     public var selective: Bool?
+    
     public init(forceReply: Bool, selective: Bool? = nil) {
         self.forceReply = forceReply
         self.selective = selective
@@ -639,6 +688,7 @@ public class ChatMember: Codable {
     public var canSendPolls: Bool?
     public var canSendOtherMessages: Bool?
     public var canAddWebPagePreviews: Bool?
+    
     public init(user: User, status: Status, customTitle: String? = nil, untilDate: Date? = nil, canBeEdited: Bool? = nil, canPostMessages: Bool? = nil, canEditMessages: Bool? = nil, canDeleteMessages: Bool? = nil, canRestrictMembers: Bool? = nil, canPromoteMembers: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil, isMember: Bool? = nil, canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil) {
         self.user = user
         self.status = status
@@ -672,6 +722,7 @@ public class ChatPermissions: Codable {
     public var canChangeInfo: Bool?
     public var canInviteUsers: Bool?
     public var canPinMessages: Bool?
+    
     public init(canSendMessages: Bool? = nil, canSendMediaMessages: Bool? = nil, canSendPolls: Bool? = nil, canSendOtherMessages: Bool? = nil, canAddWebPagePreviews: Bool? = nil, canChangeInfo: Bool? = nil, canInviteUsers: Bool? = nil, canPinMessages: Bool? = nil) {
         self.canSendMessages = canSendMessages
         self.canSendMediaMessages = canSendMediaMessages
@@ -698,6 +749,7 @@ public class BotCommand: Codable {
 public class ResponseParameters: Codable {
     public var migrateToChatId: Int64?
     public var retryAfter: Int?
+    
     public init(migrateToChatId: Int64? = nil, retryAfter: Int? = nil) {
         self.migrateToChatId = migrateToChatId
         self.retryAfter = retryAfter
@@ -710,6 +762,7 @@ public class InputMediaPhoto: Codable {
     public var media: String
     public var caption: String?
     public var parseMode: ParseMode?
+    
     public init(type: String, media: String, caption: String? = nil, parseMode: ParseMode? = nil) {
         self.type = type
         self.media = media
@@ -729,6 +782,7 @@ public class InputMediaVideo: Codable {
     public var height: Int?
     public var duration: Int?
     public var supportsStreaming: Bool?
+    
     public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
         self.type = type
         self.media = media
@@ -752,6 +806,7 @@ public class InputMediaAnimation: Codable {
     public var width: Int?
     public var height: Int?
     public var duration: Int?
+    
     public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
         self.type = type
         self.media = media
@@ -774,6 +829,7 @@ public class InputMediaAudio: Codable {
     public var duration: Int?
     public var performer: String?
     public var title: String?
+    
     public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, duration: Int? = nil, performer: String? = nil, title: String? = nil) {
         self.type = type
         self.media = media
@@ -793,6 +849,7 @@ public class InputMediaDocument: Codable {
     public var thumb: InputFileOrString?
     public var caption: String?
     public var parseMode: ParseMode?
+    
     public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil) {
         self.type = type
         self.media = media
@@ -814,6 +871,7 @@ public class Sticker: Codable {
     public var setName: String?
     public var maskPosition: MaskPosition?
     public var fileSize: Int?
+    
     public init(fileId: String, fileUniqueId: String, width: Int, height: Int, isAnimated: Bool, thumb: PhotoSize? = nil, emoji: String? = nil, setName: String? = nil, maskPosition: MaskPosition? = nil, fileSize: Int? = nil) {
         self.fileId = fileId
         self.fileUniqueId = fileUniqueId
@@ -836,6 +894,7 @@ public class StickerSet: Codable {
     public var containsMasks: Bool
     public var stickers: [Sticker] = []
     public var thumb: PhotoSize?
+    
     public init(name: String, title: String, isAnimated: Bool, containsMasks: Bool, stickers: [Sticker], thumb: PhotoSize? = nil) {
         self.name = name
         self.title = title
@@ -889,6 +948,7 @@ public class InlineQueryResultArticle: Codable {
     public var thumbUrl: String?
     public var thumbWidth: Int?
     public var thumbHeight: Int?
+    
     public init(type: String, id: String, title: String, inputMessageContent: InputMessageContent, replyMarkup: InlineKeyboardMarkup? = nil, url: String? = nil, hideUrl: Bool? = nil, description: String? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type
         self.id = id
@@ -918,6 +978,7 @@ public class InlineQueryResultPhoto: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -948,6 +1009,7 @@ public class InlineQueryResultGif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -977,6 +1039,7 @@ public class InlineQueryResultLocation: Codable {
     public var thumbUrl: String?
     public var thumbWidth: Int?
     public var thumbHeight: Int?
+    
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, livePeriod: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type
         self.id = id
@@ -1006,6 +1069,7 @@ public class InlineQueryResultMpeg4Gif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1038,6 +1102,7 @@ public class InlineQueryResultVideo: Codable {
     public var description: String?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1068,6 +1133,7 @@ public class InlineQueryResultAudio: Codable {
     public var audioDuration: Int?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, audioUrl: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, performer: String? = nil, audioDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1093,6 +1159,7 @@ public class InlineQueryResultVoice: Codable {
     public var voiceDuration: Int?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, voiceUrl: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, voiceDuration: Int? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1121,6 +1188,7 @@ public class InlineQueryResultDocument: Codable {
     public var thumbUrl: String?
     public var thumbWidth: Int?
     public var thumbHeight: Int?
+    
     public init(type: String, id: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, documentUrl: String, mimeType: String, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type
         self.id = id
@@ -1153,6 +1221,7 @@ public class InlineQueryResultVenue: Codable {
     public var thumbUrl: String?
     public var thumbWidth: Int?
     public var thumbHeight: Int?
+    
     public init(type: String, id: String, latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type
         self.id = id
@@ -1183,6 +1252,7 @@ public class InlineQueryResultContact: Codable {
     public var thumbUrl: String?
     public var thumbWidth: Int?
     public var thumbHeight: Int?
+    
     public init(type: String, id: String, phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, thumbUrl: String? = nil, thumbWidth: Int? = nil, thumbHeight: Int? = nil) {
         self.type = type
         self.id = id
@@ -1204,6 +1274,7 @@ public class InlineQueryResultGame: Codable {
     public var id: String
     public var gameShortName: String
     public var replyMarkup: InlineKeyboardMarkup?
+    
     public init(type: String, id: String, gameShortName: String, replyMarkup: InlineKeyboardMarkup? = nil) {
         self.type = type
         self.id = id
@@ -1223,6 +1294,7 @@ public class InlineQueryResultCachedPhoto: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1246,6 +1318,7 @@ public class InlineQueryResultCachedGif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1268,6 +1341,7 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1287,6 +1361,7 @@ public class InlineQueryResultCachedSticker: Codable {
     public var stickerFileId: String
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, stickerFileId: String, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1307,6 +1382,7 @@ public class InlineQueryResultCachedDocument: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, title: String, documentFileId: String, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1331,6 +1407,7 @@ public class InlineQueryResultCachedVideo: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1354,6 +1431,7 @@ public class InlineQueryResultCachedVoice: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, voiceFileId: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1375,6 +1453,7 @@ public class InlineQueryResultCachedAudio: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    
     public init(type: String, id: String, audioFileId: String, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
         self.type = type
         self.id = id
@@ -1391,6 +1470,7 @@ public class InputTextMessageContent: Codable {
     public var messageText: String
     public var parseMode: ParseMode?
     public var disableWebPagePreview: Bool?
+    
     public init(messageText: String, parseMode: ParseMode? = nil, disableWebPagePreview: Bool? = nil) {
         self.messageText = messageText
         self.parseMode = parseMode
@@ -1403,6 +1483,7 @@ public class InputLocationMessageContent: Codable {
     public var latitude: Float
     public var longitude: Float
     public var livePeriod: Int?
+    
     public init(latitude: Float, longitude: Float, livePeriod: Int? = nil) {
         self.latitude = latitude
         self.longitude = longitude
@@ -1418,6 +1499,7 @@ public class InputVenueMessageContent: Codable {
     public var address: String
     public var foursquareId: String?
     public var foursquareType: String?
+    
     public init(latitude: Float, longitude: Float, title: String, address: String, foursquareId: String? = nil, foursquareType: String? = nil) {
         self.latitude = latitude
         self.longitude = longitude
@@ -1434,6 +1516,7 @@ public class InputContactMessageContent: Codable {
     public var firstName: String
     public var lastName: String?
     public var vcard: String?
+    
     public init(phoneNumber: String, firstName: String, lastName: String? = nil, vcard: String? = nil) {
         self.phoneNumber = phoneNumber
         self.firstName = firstName
@@ -1485,6 +1568,29 @@ public class Invoice: Codable {
 }
 
 
+public class SentWebAppMessage: Codable {
+    public var inlineMessageId: String?
+    
+    public init(inlineMessageId: String?) {
+        self.inlineMessageId = inlineMessageId
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case inlineMessageId = "inline_message_id"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        inlineMessageId = try values.decodeIfPresent(String.self, forKey: .inlineMessageId)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(inlineMessageId, forKey: .inlineMessageId)
+    }
+}
+
+
 public class ShippingAddress: Codable {
     public var countryCode: String
     public var state: String
@@ -1492,6 +1598,7 @@ public class ShippingAddress: Codable {
     public var streetLine1: String
     public var streetLine2: String
     public var postCode: String
+    
     public init(countryCode: String, state: String, city: String, streetLine1: String, streetLine2: String, postCode: String) {
         self.countryCode = countryCode
         self.state = state
@@ -1508,6 +1615,7 @@ public class OrderInfo: Codable {
     public var phoneNumber: String?
     public var email: String?
     public var shippingAddress: ShippingAddress?
+    
     public init(name: String? = nil, phoneNumber: String? = nil, email: String? = nil, shippingAddress: ShippingAddress? = nil) {
         self.name = name
         self.phoneNumber = phoneNumber
@@ -1570,6 +1678,7 @@ public class PreCheckoutQuery: Codable {
     public var invoicePayload: String
     public var shippingOptionId: String?
     public var orderInfo: OrderInfo?
+    
     public init(id: String, from: User, currency: String, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil) {
         self.id = id
         self.from = from
@@ -1588,6 +1697,7 @@ public class Game: Codable {
     public var text: String?
     public var textEntities: [MessageEntity]? = []
     public var animation: Animation?
+    
     public init(title: String, description: String, photo: [PhotoSize], text: String? = nil, textEntities: [MessageEntity]? = nil, animation: Animation? = nil) {
         self.title = title
         self.description = description

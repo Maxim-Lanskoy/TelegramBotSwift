@@ -2007,6 +2007,29 @@ public extension TelegramBot {
                                 "switch_pm_parameter": switchPmParameter],
                             queue: queue, completion: completion)
     }
+    typealias AnswerWebAppQueryCompletion = (_ result: Bool?, _ error: DataTaskError?) -> ()
+    
+    @discardableResult
+    func answerWebAppQuerySync(
+        webAppQueryId: String,
+        result: InlineQueryResult,
+        _ parameters: [String: Encodable?] = [:]) -> Bool? {
+        return requestSync("answerWebAppQuery", defaultParameters["answerWebAppQuery"], parameters, [
+                            "web_app_query_id": webAppQueryId,
+                            "result": result])
+    }
+    
+    func answerWepAppQueryAsync(
+        webAppQueryId: String,
+        result: InlineQueryResult,
+        _ parameters: [String: Encodable?] = [:],
+        queue: DispatchQueue = .main,
+        completion: AnswerWebAppQueryCompletion? = nil) {
+        return requestAsync("answerWebAppQuery", defaultParameters["answerWebAppQuery"], parameters, [
+                                "web_app_query_id": webAppQueryId,
+                                "result": result],
+                            queue: queue, completion: completion)
+    }
     typealias SendInvoiceCompletion = (_ result: Message?, _ error: DataTaskError?) -> ()
     
     @discardableResult
