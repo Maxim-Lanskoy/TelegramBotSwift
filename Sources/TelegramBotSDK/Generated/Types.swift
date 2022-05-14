@@ -1574,20 +1574,6 @@ public class SentWebAppMessage: Codable {
     public init(inlineMessageId: String?) {
         self.inlineMessageId = inlineMessageId
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case inlineMessageId = "inline_message_id"
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        inlineMessageId = try values.decodeIfPresent(String.self, forKey: .inlineMessageId)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(inlineMessageId, forKey: .inlineMessageId)
-    }
 }
 
 
