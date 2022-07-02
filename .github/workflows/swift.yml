@@ -7,41 +7,16 @@ on:
     branches: [ master ]
 
 jobs:
-  build-macos:
-    runs-on: macos-latest
+  build:
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup Swift
-      uses: fwal/setup-swift@d43a564349d1341cd990cfbd70d94d63b8899475
-      with:
-        swift-version: "5.7"
-    - name: Build
-      run: swift build
-  build-linux:
-    runs-on: [ubuntu-22.04]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: sudo apt-get install \
-          binutils \
-          git \
-          gnupg2 \
-          libc6-dev \
-          libcurl4 \
-          libedit2 \
-          libgcc-9-dev \
-          libpython2.7 \
-          libsqlite3-0 \
-          libstdc++-9-dev \
-          libxml2 \
-          libz3-dev \
-          pkg-config \
-          tzdata \
-          uuid-dev \
-          zlib1g-dev
-      - name: Setup Swift
-        uses: fwal/setup-swift@d43a564349d1341cd990cfbd70d94d63b8899475
+      - uses: fwal/setup-swift@2040b795e5c453c3a05fcb8316496afc8a74f192
         with:
           swift-version: "5.7"
+      - uses: actions/checkout@v3
       - name: Build
         run: swift build
