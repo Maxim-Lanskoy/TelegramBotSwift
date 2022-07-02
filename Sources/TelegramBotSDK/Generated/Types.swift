@@ -41,6 +41,7 @@ public class WebhookInfo: Codable {
     public var lastErrorMessage: String?
     public var maxConnections: Int?
     public var allowedUpdates: [String]? = []
+    
     public init(url: String, hasCustomCertificate: Bool, pendingUpdateCount: Int, lastErrorDate: Date? = nil, lastErrorMessage: String? = nil, maxConnections: Int? = nil, allowedUpdates: [String]? = nil) {
         self.url = url
         self.hasCustomCertificate = hasCustomCertificate
@@ -418,6 +419,7 @@ public class Contact: Codable {
 public class Dice: Codable {
     public var emoji: String
     public var value: Int
+    
     public init(emoji: String, value: Int) {
         self.emoji = emoji
         self.value = value
@@ -428,6 +430,7 @@ public class Dice: Codable {
 public class Location: Codable {
     public var longitude: Float
     public var latitude: Float
+    
     public init(longitude: Float, latitude: Float) {
         self.longitude = longitude
         self.latitude = latitude
@@ -455,6 +458,7 @@ public class Venue: Codable {
 public class PollOption: Codable {
     public var text: String
     public var voterCount: Int
+    
     public init(text: String, voterCount: Int) {
         self.text = text
         self.voterCount = voterCount
@@ -466,6 +470,7 @@ public class PollAnswer: Codable {
     public var pollId: String
     public var user: User
     public var optionIds: [Int] = []
+    
     public init(pollId: String, user: User, optionIds: [Int]) {
         self.pollId = pollId
         self.user = user
@@ -488,6 +493,7 @@ public class Poll: Codable {
     public var explanationEntities: [MessageEntity]? = []
     public var openPeriod: Int?
     public var closeDate: Date?
+
     
     public init(id: String, question: String, options: [PollOption], totalVoterCount: Int, isClosed: Bool, isAnonymous: Bool, type: PollType, allowsMultipleAnswers: Bool, correctOptionId: Int? = nil, explanation: String? = nil, explanationEntities: [MessageEntity]? = nil, openPeriod: Int? = nil, closeDate: Date? = nil) {
         self.id = id
@@ -510,6 +516,7 @@ public class Poll: Codable {
 public class UserProfilePhotos: Codable {
     public var totalCount: Int
     public var photos: [[PhotoSize]] = [[]]
+    
     public init(totalCount: Int, photos: [[PhotoSize]]) {
         self.totalCount = totalCount
         self.photos = photos
@@ -586,6 +593,7 @@ public class ReplyKeyboardRemove: Codable {
 
 public class InlineKeyboardMarkup: Codable {
     public var inlineKeyboard: [[InlineKeyboardButton]] = [[]]
+    
     public init(inlineKeyboard: [[InlineKeyboardButton]]) {
         self.inlineKeyboard = inlineKeyboard
     }
@@ -618,6 +626,7 @@ public class InlineKeyboardButton: Codable {
 
 
 public class LoginUrl: Codable {
+    
     public init() { }
 }
 
@@ -659,6 +668,7 @@ public class ChatPhoto: Codable {
     public var smallFileUniqueId: String
     public var bigFileId: String
     public var bigFileUniqueId: String
+    
     public init(smallFileId: String, smallFileUniqueId: String, bigFileId: String, bigFileUniqueId: String) {
         self.smallFileId = smallFileId
         self.smallFileUniqueId = smallFileUniqueId
@@ -739,6 +749,7 @@ public class ChatPermissions: Codable {
 public class BotCommand: Codable {
     public var command: String
     public var description: String
+    
     public init(command: String, description: String) {
         self.command = command
         self.description = description
@@ -911,6 +922,7 @@ public class MaskPosition: Codable {
     public var xShift: Float
     public var yShift: Float
     public var scale: Float
+    
     public init(point: String, xShift: Float, yShift: Float, scale: Float) {
         self.point = point
         self.xShift = xShift
@@ -926,6 +938,7 @@ public class InlineQuery: Codable {
     public var location: Location?
     public var query: String
     public var offset: String
+    
     public init(id: String, from: User, location: Location? = nil, query: String, offset: String) {
         self.id = id
         self.from = from
@@ -1532,6 +1545,7 @@ public class ChosenInlineResult: Codable {
     public var location: Location?
     public var inlineMessageId: String?
     public var query: String
+    
     public init(resultId: String, from: User, location: Location? = nil, inlineMessageId: String? = nil, query: String) {
         self.resultId = resultId
         self.from = from
@@ -1545,6 +1559,7 @@ public class ChosenInlineResult: Codable {
 public class LabeledPrice: Codable {
     public var label: String
     public var amount: Int
+    
     public init(label: String, amount: Int) {
         self.label = label
         self.amount = amount
@@ -1558,6 +1573,7 @@ public class Invoice: Codable {
     public var startParameter: String
     public var currency: String
     public var totalAmount: Int
+    
     public init(title: String, description: String, startParameter: String, currency: String, totalAmount: Int) {
         self.title = title
         self.description = description
@@ -1615,6 +1631,7 @@ public class ShippingOption: Codable {
     public var id: String
     public var title: String
     public var prices: [LabeledPrice]
+    
     public init(id: String, title: String, prices: [LabeledPrice]) {
         self.id = id
         self.title = title
@@ -1631,6 +1648,7 @@ public class SuccessfulPayment: Codable {
     public var orderInfo: OrderInfo?
     public var telegramPaymentChargeId: String
     public var providerPaymentChargeId: String
+    
     public init(currency: String, totalAmount: Int, invoicePayload: String, shippingOptionId: String? = nil, orderInfo: OrderInfo? = nil, telegramPaymentChargeId: String, providerPaymentChargeId: String) {
         self.currency = currency
         self.totalAmount = totalAmount
@@ -1648,6 +1666,7 @@ public class ShippingQuery: Codable {
     public var from: User
     public var invoicePayload: String
     public var shippingAddress: ShippingAddress
+    
     public init(id: String, from: User, invoicePayload: String, shippingAddress: ShippingAddress) {
         self.id = id
         self.from = from
@@ -1696,6 +1715,7 @@ public class Game: Codable {
 
 
 public class CallbackGame: Codable {
+    
     public init() { }
 }
 
@@ -1704,6 +1724,7 @@ public class GameHighScore: Codable {
     public var position: Int
     public var user: User
     public var score: Int
+    
     public init(position: Int, user: User, score: Int) {
         self.position = position
         self.user = user
