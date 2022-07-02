@@ -1,10 +1,10 @@
-// swift-tools-version: 5.4
+// swift-tools-version: 5.7
 
 import PackageDescription
 
 let package = Package(
     name: "TelegramBotSDK",
-    platforms: [.macOS(.v11)],
+    platforms: [.macOS(.v13)],
     products: [
         .library(
             name: "CCurl",
