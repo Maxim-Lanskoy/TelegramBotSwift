@@ -85,9 +85,9 @@ public class User: Codable {
         public var lastName: String? = \(lastName ?? "nil")
         public var username: String? = \(username ?? "nil")
         public var languageCode: String? = \(languageCode ?? "nil")
-        public var canJoinGroups: Bool? = \(canJoinGroups ?? "nil")
-        public var canReadAllGroupMessages: Bool? = \(canReadAllGroupMessages ?? "nil")
-        public var supportsInlineQueries: Bool? = \(supportsInlineQueries ?? "nil")
+        public var canJoinGroups: Bool? = \(canJoinGroups != nil ? "\(canJoinGroups!)" : "nil")
+        public var canReadAllGroupMessages: Bool? = \(canReadAllGroupMessages != nil ? "\(canReadAllGroupMessages!)" : "nil")
+        public var supportsInlineQueries: Bool? = \(supportsInlineQueries != nil ? "\(supportsInlineQueries!)" : "nil")
         """)
     }
 }
