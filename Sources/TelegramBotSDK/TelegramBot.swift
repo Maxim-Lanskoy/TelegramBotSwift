@@ -50,6 +50,8 @@ public class TelegramBot {
     /// Logging function. Defaults to `print`.
     public var logger: (_ text: String) -> () = { print($0) }
     
+    private var lastFetchedUser: User?
+    
     /// Defines reconnect delay in seconds when requesting updates. Can be overridden.
     ///
     /// - Parameter retryCount: Number of reconnect retries associated with `request`.
@@ -71,10 +73,11 @@ public class TelegramBot {
     ///
     /// This function will block until the request is finished.
     public lazy var user: User = {
-        guard let me = self.getMeSync() else {
-            print("Unable to fetch bot information: \(self.lastError.unwrapOptional)")
-            exit(1)
-        }
+        let defaultUser = User(id: 1389445938, isBot: true, firstName: "🌍 Orion Nebula: Alpha",
+                               username: "OrionNebulaBot", canJoinGroups: false,
+                               canReadAllGroupMessages: true, supportsInlineQueries: false)
+        let me = self.getMeSync() ?? lastFetchedUser ?? defaultUser
+        self.lastFetchedUser = me
         return me
     }()
     
@@ -82,10 +85,11 @@ public class TelegramBot {
     ///
     /// This function will block until the request is finished.
     public lazy var username: String = {
-        guard let username = self.user.username else {
-            fatalError("Unable to fetch bot username")
+        if let username = self.user.username {
+            return username
+        } else {
+            return "OrionNebulaBot"
         }
-        return username
     }()
     
     /// Equivalent of calling `BotName(username: username)`

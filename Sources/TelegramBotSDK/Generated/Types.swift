@@ -76,6 +76,20 @@ public class User: Codable {
         self.canReadAllGroupMessages = canReadAllGroupMessages
         self.supportsInlineQueries = supportsInlineQueries
     }
+    
+    public func printDebugPrettyData() {
+        print("""
+        public var id: Int64 = \(id)
+        public var isBot: Bool = \(isBot)
+        public var firstName: String = \(firstName)
+        public var lastName: String? = \(lastName ?? "nil")
+        public var username: String? = \(username ?? "nil")
+        public var languageCode: String? = \(languageCode ?? "nil")
+        public var canJoinGroups: Bool? = \(canJoinGroups ?? "nil")
+        public var canReadAllGroupMessages: Bool? = \(canReadAllGroupMessages ?? "nil")
+        public var supportsInlineQueries: Bool? = \(supportsInlineQueries ?? "nil")
+        """)
+    }
 }
 
 
