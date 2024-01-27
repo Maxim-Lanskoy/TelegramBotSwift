@@ -24,4 +24,5 @@ public enum MessageEntityType: String, Codable {
     case textMention = "text_mention"
     case spoiler
     case customEmoji = "custom_emoji"
+    case blockquote
 }

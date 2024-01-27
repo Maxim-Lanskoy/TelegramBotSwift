@@ -269,7 +269,6 @@ public class MessageEntity: Codable {
     }
 }
 
-
 public class PhotoSize: Codable {
     public var fileId: String
     public var fileUniqueId: String
