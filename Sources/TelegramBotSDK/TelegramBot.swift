@@ -35,7 +35,7 @@ public class TelegramBot {
     public var defaultUpdatesLimit: Int = 100
 
     /// Default getUpdates timeout in seconds.
-    public var defaultUpdatesTimeout: Int = 60
+    public var defaultUpdatesTimeout: Int = 5
     
     // Should probably be a LinkedList, but it won't be longer than
     // 100 elements anyway.
@@ -61,9 +61,9 @@ public class TelegramBot {
             case 0: return 0.0
             case 1: return 1.0
             case 2: return 2.0
-            case 3: return 5.0
-            case 4: return 10.0
-            case 5: return 20.0
+            case 3: return 3.0
+            case 4: return 4.0
+            case 5: return 5.0
             default: break
         }
         return 30.0
