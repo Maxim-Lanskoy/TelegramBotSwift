@@ -35,7 +35,7 @@ public class TelegramBot {
     public var defaultUpdatesLimit: Int = 100
 
     /// Default getUpdates timeout in seconds.
-    public var defaultUpdatesTimeout: Int = 60
+    public var defaultUpdatesTimeout: Int = 10
     
     // Should probably be a LinkedList, but it won't be longer than
     // 100 elements anyway.
@@ -216,7 +216,7 @@ public class TelegramBot {
     private func curlPerformRequest<T: Decodable>(endpointUrl: URL, contentType: String, resultType: T.Type, requestBytes: UnsafePointer<UInt8>, byteCount: Int, completion: @escaping DataTaskCompletion) {
         var callbackData = WriteCallbackData()
         
-        logger("[CURL request] of ContentType (\"\(contentType)\"): \(endpointUrl) | expected result is \(T.self).")
+        //logger("[CURL request] of ContentType (\"\(contentType)\"): \(endpointUrl) | expected result is \(T.self).")
         
         guard let curl = curl_easy_init() else {
             logger("[CURL error - 0]: Failed to init curl \"let curl = curl_easy_init()\".")
