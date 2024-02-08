@@ -238,10 +238,26 @@ public class TelegramBot {
         curl_easy_setopt_slist(curl, CURLOPT_HTTPHEADER, headers)
         defer { curl_slist_free_all(headers) }
         
+        let headerFunction: curl_write_callback = { (ptr, size, nmemb, userdata) -> Int in
+            let count = size * nmemb
+            let headerData = Data(bytes: ptr!, count: count)
+            let headerString = String(data: headerData, encoding: .utf8) ?? ""
+            print("[CURL Header String]: \(headerString)")
+            return count
+        }
+        
+        curl_easy_setopt_write_function(curl, CURLOPT_HEADERFUNCTION, headerFunction)
+        curl_easy_setopt_pointer(curl, CURLOPT_HEADERDATA, &callbackData)
+        
         let writeFunction: curl_write_callback = { (ptr, size, nmemb, userdata) -> Int in
             let count = size * nmemb
             if let writeCallbackDataPointer = userdata?.assumingMemoryBound(to: WriteCallbackData.self) {
                 let writeCallbackData = writeCallbackDataPointer.pointee
+                if let dataString = String(bytesNoCopy: UnsafeMutableRawPointer(mutating: ptr!), length: count, encoding: .utf8, freeWhenDone: false) {
+                    print("[CURL Data Received]: Data length: \(count), Data preview: \(dataString.prefix(200))")
+                } else {
+                    print("[CURL Data Received]: Data length: \(count)")
+                }
                 ptr?.withMemoryRebound(to: UInt8.self, capacity: count) {
                     writeCallbackData.data.append(&$0.pointee, count: count)
                 }
@@ -250,10 +266,15 @@ public class TelegramBot {
         }
         curl_easy_setopt_write_function(curl, CURLOPT_WRITEFUNCTION, writeFunction)
         curl_easy_setopt_pointer(curl, CURLOPT_WRITEDATA, &callbackData)
-        //curl_easy_setopt_int(curl, CURLOPT_VERBOSE, 1)
+        
+        curl_easy_setopt_int(curl, CURLOPT_VERBOSE, 1)
         let code = curl_easy_perform(curl)
         guard code == CURLE_OK else {
-            logger("[CURL error - 1]: Failed to pass basic \"code == CURLE_OK\" check - [\(code)].")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 1]: Failed to pass basic \"code == CURLE_OK\" check - [\(code)], desc - \(errorMsg). Detailed: \(detailedError).")
             reportCurlError(code: code, completion: completion)
             return
         }
@@ -262,14 +283,22 @@ public class TelegramBot {
         //print("CURLcode=\(code.rawValue) result=\(result.unwrapOptional)")
         
         guard code != CURLE_ABORTED_BY_CALLBACK else {
-            logger("[CURL error - 2]: Request code is CURLE_ABORTED_BY_CALLBACK - [\(code)].")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 2]: Request code is CURLE_ABORTED_BY_CALLBACK - [\(code)], desc - \(errorMsg). Detailed: \(detailedError).")
             completion(nil, .libcurlAbortedByCallback)
             return
         }
         
         var httpCode: Int = 0
         guard CURLE_OK == curl_easy_getinfo_long(curl, CURLINFO_RESPONSE_CODE, &httpCode) else {
-            logger("[CURL error - 3]: Request code for curl_easy_getinfo_long is not \"CURLE_OK\" - [\(code)].")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 3]: Request code for curl_easy_getinfo_long is not \"CURLE_OK\" - [\(code)], desc - \(errorMsg). Detailed: \(detailedError).")
             reportCurlError(code: code, completion: completion)
             return
         }
@@ -281,18 +310,29 @@ public class TelegramBot {
         do {
             telegramResponse = try decoder.decode(Response<T>.self, from: data)
         } catch {
-            print(error.localizedDescription)
-            logger("[CURL error - 4]: Failed to decode curl response - \(String(describing: error)), raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\".")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 4]: Failed to decode curl response - \(String(describing: error)), raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .decodeError(data: data))
             return
         }
         guard let safeTelegramResponse = telegramResponse else {
-            logger("[CURL error - 5]: TelegramResponse object is nil, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\".")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 5]: TelegramResponse object is nil, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .decodeError(data: data))
             return
         }
         guard httpCode == 200 else {
-            logger("[CURL error - 6]: Curl response HttpCode is not 200, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\", desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1).")
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 6]: Curl response HttpCode is not 200, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\", desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1). Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil,
                        .invalidStatusCode(
                         statusCode: httpCode,
@@ -303,10 +343,20 @@ public class TelegramBot {
             return
         }
         guard !data.isEmpty else {
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 8]: Data is empty. Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .noDataReceived)
             return
         }
         if !safeTelegramResponse.ok {
+            let errorMsg = String(cString: curl_easy_strerror(code))
+            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
+            let detailedError = String(cString: errorBuffer)
+            logger("[CURL error - 9]: SafeTelegramResponse.ok is not true. Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .serverError(data: data))
             return
         }
