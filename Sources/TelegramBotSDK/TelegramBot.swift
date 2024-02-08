@@ -216,9 +216,10 @@ public class TelegramBot {
     private func curlPerformRequest<T: Decodable>(endpointUrl: URL, contentType: String, resultType: T.Type, requestBytes: UnsafePointer<UInt8>, byteCount: Int, completion: @escaping DataTaskCompletion) {
         var callbackData = WriteCallbackData()
         
-        logger("[CURL request] of type \"\(contentType)\": \(endpointUrl), expected result is \(T.Type.self)")
+        logger("[CURL request] of ContentType (\"\(contentType)\"): \(endpointUrl) | expected result is \(T.self).")
         
         guard let curl = curl_easy_init() else {
+            logger("[CURL error - 0]: Failed to init curl \"let curl = curl_easy_init()\".")
             completion(nil, .libcurlInitError)
             return
         }
@@ -252,7 +253,7 @@ public class TelegramBot {
         //curl_easy_setopt_int(curl, CURLOPT_VERBOSE, 1)
         let code = curl_easy_perform(curl)
         guard code == CURLE_OK else {
-            logger("[CURL error 1]: \(code)")
+            logger("[CURL error - 1]: Failed to pass basic \"code == CURLE_OK\" check - [\(code)].")
             reportCurlError(code: code, completion: completion)
             return
         }
@@ -261,13 +262,14 @@ public class TelegramBot {
         //print("CURLcode=\(code.rawValue) result=\(result.unwrapOptional)")
         
         guard code != CURLE_ABORTED_BY_CALLBACK else {
-            logger("[CURL error 2]: \(code)")
+            logger("[CURL error - 2]: Request code is CURLE_ABORTED_BY_CALLBACK - [\(code)].")
             completion(nil, .libcurlAbortedByCallback)
             return
         }
         
         var httpCode: Int = 0
         guard CURLE_OK == curl_easy_getinfo_long(curl, CURLINFO_RESPONSE_CODE, &httpCode) else {
+            logger("[CURL error - 3]: Request code for curl_easy_getinfo_long is not \"CURLE_OK\" - [\(code)].")
             reportCurlError(code: code, completion: completion)
             return
         }
@@ -280,17 +282,17 @@ public class TelegramBot {
             telegramResponse = try decoder.decode(Response<T>.self, from: data)
         } catch {
             print(error.localizedDescription)
-            logger("[CURL error 3, decode]: \(String(data: data, encoding: .utf8) ?? "nil")")
+            logger("[CURL error - 4]: Failed to decode curl response - \(String(describing: error)), raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\".")
             completion(nil, .decodeError(data: data))
             return
         }
         guard let safeTelegramResponse = telegramResponse else {
-            logger("[CURL error 4, safe]: \(String(data: data, encoding: .utf8) ?? "nil")")
+            logger("[CURL error - 5]: TelegramResponse object is nil, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\".")
             completion(nil, .decodeError(data: data))
             return
         }
         guard httpCode == 200 else {
-            logger("[CURL error 5, not 200]: \(String(data: data, encoding: .utf8) ?? "nil"), desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1)")
+            logger("[CURL error - 6]: Curl response HttpCode is not 200, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\", desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1).")
             completion(nil,
                        .invalidStatusCode(
                         statusCode: httpCode,
@@ -313,8 +315,7 @@ public class TelegramBot {
     
     private func reportCurlError(code: CURLcode, completion: @escaping DataTaskCompletion) {
         let failReason = String(cString: curl_easy_strerror(code), encoding: .utf8) ?? "unknown error"
-        //print("Request failed: \(failReason)")
-        logger("[CURL error 6, failed] resaon: \(failReason)")
+        logger("[CURL error - 7]: Detected readable curl error - \(failReason), code - \"\(code)\".")
         completion(nil, .libcurlError(code: code, description: failReason))
     }
     
