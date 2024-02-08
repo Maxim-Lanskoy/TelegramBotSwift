@@ -23,16 +23,15 @@ extension TelegramBot {
                 updates = getUpdatesSync(offset: nextOffset, limit: defaultUpdatesLimit, timeout: defaultUpdatesTimeout)
                 if updates == nil {
                     // Retry on temporary problems
-                    if autoReconnect, let error = lastError, case .libcurlError(let code, let description) = error {
-                        logger("\n[CURL]: Error (\(code.rawValue)) - \(description)\n")
+                    if autoReconnect, let error = lastError, case .libcurlError(let code, _) = error {
                         switch code {
                         case CURLE_COULDNT_RESOLVE_PROXY, CURLE_COULDNT_RESOLVE_HOST, CURLE_COULDNT_CONNECT, CURLE_OPERATION_TIMEDOUT, CURLE_SSL_CONNECT_ERROR, CURLE_SEND_ERROR, CURLE_RECV_ERROR:
                             let delay = reconnectDelay(retryCount)
                             retryCount += 1
                             if delay == 0.0 {
-                                logger("[CURL]: Reconnect attempt \(retryCount), will retry at once")
+                                logger("Reconnect attempt \(retryCount), will retry at once")
                             } else {
-                                logger("[CURL]: Reconnect attempt \(retryCount), will retry after \(delay) sec")
+                                logger("Reconnect attempt \(retryCount), will retry after \(delay) sec")
                                 wait(seconds: delay)
                             }
                             continue
