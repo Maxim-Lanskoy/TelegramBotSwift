@@ -239,26 +239,26 @@ public class TelegramBot {
         curl_easy_setopt_slist(curl, CURLOPT_HTTPHEADER, headers)
         defer { curl_slist_free_all(headers) }
         
-        let headerFunction: curl_write_callback = { (ptr, size, nmemb, userdata) -> Int in
-            let count = size * nmemb
-            let headerData = Data(bytes: ptr!, count: count)
-            let headerString = String(data: headerData, encoding: .utf8) ?? ""
-            print("[CURL Header String]: \(headerString)")
-            return count
-        }
-        
-        curl_easy_setopt_write_function(curl, CURLOPT_HEADERFUNCTION, headerFunction)
-        curl_easy_setopt_pointer(curl, CURLOPT_HEADERDATA, &callbackData)
+        //let headerFunction: curl_write_callback = { (ptr, size, nmemb, userdata) -> Int in
+        //    let count = size * nmemb
+        //    let headerData = Data(bytes: ptr!, count: count)
+        //    let headerString = String(data: headerData, encoding: .utf8) ?? ""
+        //    print("[CURL Header String]: \(headerString)")
+        //    return count
+        //}
+        //
+        //curl_easy_setopt_write_function(curl, CURLOPT_HEADERFUNCTION, headerFunction)
+        //curl_easy_setopt_pointer(curl, CURLOPT_HEADERDATA, &callbackData)
         
         let writeFunction: curl_write_callback = { (ptr, size, nmemb, userdata) -> Int in
             let count = size * nmemb
             if let writeCallbackDataPointer = userdata?.assumingMemoryBound(to: WriteCallbackData.self) {
                 let writeCallbackData = writeCallbackDataPointer.pointee
-                if let dataString = String(bytesNoCopy: UnsafeMutableRawPointer(mutating: ptr!), length: count, encoding: .utf8, freeWhenDone: false) {
-                    print("[CURL Data Received]: Data length: \(count), Data preview: \(dataString.prefix(200))")
-                } else {
-                    print("[CURL Data Received]: Data length: \(count)")
-                }
+                //if let dataString = String(bytesNoCopy: UnsafeMutableRawPointer(mutating: ptr!), length: count, encoding: .utf8, freeWhenDone: false) {
+                //    print("[CURL Data Received]: Data length: \(count), Data preview: \(dataString.prefix(200))")
+                //} else {
+                //    print("[CURL Data Received]: Data length: \(count)")
+                //}
                 ptr?.withMemoryRebound(to: UInt8.self, capacity: count) {
                     writeCallbackData.data.append(&$0.pointee, count: count)
                 }
@@ -268,7 +268,7 @@ public class TelegramBot {
         curl_easy_setopt_write_function(curl, CURLOPT_WRITEFUNCTION, writeFunction)
         curl_easy_setopt_pointer(curl, CURLOPT_WRITEDATA, &callbackData)
         
-        curl_easy_setopt_int(curl, CURLOPT_VERBOSE, 1)
+        //curl_easy_setopt_int(curl, CURLOPT_VERBOSE, 1)
         var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
         curl_easy_setopt_pointer(curl, CURLOPT_ERRORBUFFER, &errorBuffer)
         let code = curl_easy_perform(curl)
