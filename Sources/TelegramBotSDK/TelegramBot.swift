@@ -227,7 +227,7 @@ public class TelegramBot {
             curl_easy_cleanup(curl)
         }
         
-        curl_easy_setopt_int(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4)
+        //curl_easy_setopt_int(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4)
         curl_easy_setopt_string(curl, CURLOPT_URL, endpointUrl.absoluteString)
         curl_easy_setopt_int(curl, CURLOPT_HTTP_VERSION, Int32(CURL_HTTP_VERSION_1_1))
         curl_easy_setopt_int(curl, CURLOPT_POST, 1)
