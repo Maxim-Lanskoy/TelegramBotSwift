@@ -2,6 +2,7 @@
 Packages/
 *_TOKEN
 *.xcodeproj
+*.xcworkspacedata
 test_bot_token.txt
 API/api.html
 API/api.txt

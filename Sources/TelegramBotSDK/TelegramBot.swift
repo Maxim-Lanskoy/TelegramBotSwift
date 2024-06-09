@@ -310,22 +310,22 @@ public class TelegramBot {
         } catch {
             let errorMsg = String(cString: curl_easy_strerror(code))
             let detailedError = String(cString: errorBuffer)
-            logger("[CURL error - 4]: Failed to decode curl response - \(String(describing: error)), raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
+            logger("[CURL error - 4 - \(errorMsg)]: Failed to decode curl response - \(String(describing: error)), raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .decodeError(data: data))
             return
         }
         guard let safeTelegramResponse = telegramResponse else {
             let errorMsg = String(cString: curl_easy_strerror(code))
             let detailedError = String(cString: errorBuffer)
-            logger("[CURL error - 5]: TelegramResponse object is nil, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
+            logger("[CURL error - 5 - \(errorMsg)]: TelegramResponse object is nil, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\". Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .decodeError(data: data))
             return
         }
         guard httpCode == 200 else {
             let errorMsg = String(cString: curl_easy_strerror(code))
-            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            let errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
             let detailedError = String(cString: errorBuffer)
-            logger("[CURL error - 6]: Curl response HttpCode is not 200, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\", desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1). Detailed: \(detailedError). Http Code: \(httpCode).")
+            logger("[CURL error - 6 - \(errorMsg)]: Curl response HttpCode is not 200, raw - \"\(String(data: data, encoding: .utf8) ?? "nil")\", desc: \(safeTelegramResponse.description ?? "nil"), tgErr: \(safeTelegramResponse.errorCode ?? -1). Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil,
                        .invalidStatusCode(
                         statusCode: httpCode,
@@ -337,17 +337,17 @@ public class TelegramBot {
         }
         guard !data.isEmpty else {
             let errorMsg = String(cString: curl_easy_strerror(code))
-            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            let errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
             let detailedError = String(cString: errorBuffer)
-            logger("[CURL error - 8]: Data is empty. Detailed: \(detailedError). Http Code: \(httpCode).")
+            logger("[CURL error - 8 - \(errorMsg)]: Data is empty. Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .noDataReceived)
             return
         }
         if !safeTelegramResponse.ok {
             let errorMsg = String(cString: curl_easy_strerror(code))
-            var errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
+            let errorBuffer = [Int8](repeating: 0, count: Int(CURL_ERROR_SIZE))
             let detailedError = String(cString: errorBuffer)
-            logger("[CURL error - 9]: SafeTelegramResponse.ok is not true. Detailed: \(detailedError). Http Code: \(httpCode).")
+            logger("[CURL error - 9 - \(errorMsg)]: SafeTelegramResponse.ok is not true. Detailed: \(detailedError). Http Code: \(httpCode).")
             completion(nil, .serverError(data: data))
             return
         }

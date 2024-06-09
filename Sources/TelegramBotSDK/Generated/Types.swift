@@ -177,8 +177,10 @@ public class Message: Codable {
     public var connectedWebsite: String?
     public var replyMarkup: InlineKeyboardMarkup?
     public var webAppData: WebAppData?
+    public var effectId: String?
+    public var showСaptionAboveMedia: Bool? = nil
     
-    public init(messageId: Int, from: User? = nil, date: Date, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Date? = nil, replyToMessage: Message? = nil, editDate: Date? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, dice: Dice? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int64? = nil, migrateFromChatId: Int64? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, webAppData: WebAppData? = nil) {
+    public init(messageId: Int, from: User? = nil, date: Date, chat: Chat, forwardFrom: User? = nil, forwardFromChat: Chat? = nil, forwardFromMessageId: Int? = nil, forwardSignature: String? = nil, forwardSenderName: String? = nil, forwardDate: Date? = nil, replyToMessage: Message? = nil, editDate: Date? = nil, mediaGroupId: String? = nil, authorSignature: String? = nil, text: String? = nil, entities: [MessageEntity]? = nil, captionEntities: [MessageEntity]? = nil, audio: Audio? = nil, document: Document? = nil, animation: Animation? = nil, game: Game? = nil, photo: [PhotoSize]? = nil, sticker: Sticker? = nil, video: Video? = nil, voice: Voice? = nil, videoNote: VideoNote? = nil, caption: String? = nil, contact: Contact? = nil, dice: Dice? = nil, location: Location? = nil, venue: Venue? = nil, poll: Poll? = nil, newChatMembers: [User]? = nil, leftChatMember: User? = nil, newChatTitle: String? = nil, newChatPhoto: [PhotoSize]? = nil, deleteChatPhoto: Bool? = nil, groupChatCreated: Bool? = nil, supergroupChatCreated: Bool? = nil, channelChatCreated: Bool? = nil, migrateToChatId: Int64? = nil, migrateFromChatId: Int64? = nil, pinnedMessage: Message? = nil, invoice: Invoice? = nil, successfulPayment: SuccessfulPayment? = nil, connectedWebsite: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, webAppData: WebAppData? = nil, effectId: String? = nil, showСaptionAboveMedia: Bool? = nil) {
         self.messageId = messageId
         self.from = from
         self.date = date
@@ -227,6 +229,8 @@ public class Message: Codable {
         self.connectedWebsite = connectedWebsite
         self.replyMarkup = replyMarkup
         self.webAppData = webAppData
+        self.effectId = effectId
+        self.showСaptionAboveMedia = showСaptionAboveMedia
     }
 }
 
@@ -786,12 +790,14 @@ public class InputMediaPhoto: Codable {
     public var media: String
     public var caption: String?
     public var parseMode: ParseMode?
+    public var showСaptionAboveMedia: Bool?
     
-    public init(type: String, media: String, caption: String? = nil, parseMode: ParseMode? = nil) {
+    public init(type: String, media: String, caption: String? = nil, parseMode: ParseMode? = nil, showСaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.media = media
         self.caption = caption
         self.parseMode = parseMode
+        self.showСaptionAboveMedia = showСaptionAboveMedia
     }
 }
 
@@ -806,8 +812,9 @@ public class InputMediaVideo: Codable {
     public var height: Int?
     public var duration: Int?
     public var supportsStreaming: Bool?
+    public var showСaptionAboveMedia: Bool?
     
-    public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil) {
+    public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, supportsStreaming: Bool? = nil, showСaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.media = media
         self.thumb = thumb
@@ -817,6 +824,7 @@ public class InputMediaVideo: Codable {
         self.height = height
         self.duration = duration
         self.supportsStreaming = supportsStreaming
+        self.showСaptionAboveMedia = showСaptionAboveMedia
     }
 }
 
@@ -830,8 +838,9 @@ public class InputMediaAnimation: Codable {
     public var width: Int?
     public var height: Int?
     public var duration: Int?
+    public var showСaptionAboveMedia: Bool?
     
-    public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil) {
+    public init(type: String, media: String, thumb: InputFileOrString? = nil, caption: String? = nil, parseMode: ParseMode? = nil, width: Int? = nil, height: Int? = nil, duration: Int? = nil, showСaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.media = media
         self.thumb = thumb
@@ -840,6 +849,7 @@ public class InputMediaAnimation: Codable {
         self.width = width
         self.height = height
         self.duration = duration
+        self.showСaptionAboveMedia = showСaptionAboveMedia
     }
 }
 
@@ -1004,8 +1014,9 @@ public class InlineQueryResultPhoto: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, photoUrl: String, thumbUrl: String, photoWidth: Int? = nil, photoHeight: Int? = nil, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.photoUrl = photoUrl
@@ -1018,6 +1029,7 @@ public class InlineQueryResultPhoto: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1035,8 +1047,9 @@ public class InlineQueryResultGif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, gifUrl: String, gifWidth: Int? = nil, gifHeight: Int? = nil, gifDuration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.gifUrl = gifUrl
@@ -1049,6 +1062,7 @@ public class InlineQueryResultGif: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1095,8 +1109,9 @@ public class InlineQueryResultMpeg4Gif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, mpeg4Url: String, mpeg4Width: Int? = nil, mpeg4Height: Int? = nil, mpeg4Duration: Int? = nil, thumbUrl: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.mpeg4Url = mpeg4Url
@@ -1109,6 +1124,7 @@ public class InlineQueryResultMpeg4Gif: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1128,8 +1144,9 @@ public class InlineQueryResultVideo: Codable {
     public var description: String?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, videoUrl: String, mimeType: String, thumbUrl: String, title: String, caption: String? = nil, parseMode: ParseMode? = nil, videoWidth: Int? = nil, videoHeight: Int? = nil, videoDuration: Int? = nil, description: String? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.videoUrl = videoUrl
@@ -1144,6 +1161,7 @@ public class InlineQueryResultVideo: Codable {
         self.description = description
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1320,8 +1338,9 @@ public class InlineQueryResultCachedPhoto: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, photoFileId: String, title: String? = nil, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.photoFileId = photoFileId
@@ -1331,6 +1350,7 @@ public class InlineQueryResultCachedPhoto: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1344,8 +1364,9 @@ public class InlineQueryResultCachedGif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, gifFileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.gifFileId = gifFileId
@@ -1354,6 +1375,7 @@ public class InlineQueryResultCachedGif: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1367,8 +1389,9 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, mpeg4FileId: String, title: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.mpeg4FileId = mpeg4FileId
@@ -1377,6 +1400,7 @@ public class InlineQueryResultCachedMpeg4Gif: Codable {
         self.parseMode = parseMode
         self.replyMarkup = replyMarkup
         self.inputMessageContent = inputMessageContent
+        self.showCaptionAboveMedia = showCaptionAboveMedia
     }
 }
 
@@ -1433,8 +1457,9 @@ public class InlineQueryResultCachedVideo: Codable {
     public var parseMode: ParseMode?
     public var replyMarkup: InlineKeyboardMarkup?
     public var inputMessageContent: InputMessageContent?
+    public var showCaptionAboveMedia: Bool?
     
-    public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil) {
+    public init(type: String, id: String, videoFileId: String, title: String, description: String? = nil, caption: String? = nil, parseMode: ParseMode? = nil, replyMarkup: InlineKeyboardMarkup? = nil, inputMessageContent: InputMessageContent? = nil, showCaptionAboveMedia: Bool? = nil) {
         self.type = type
         self.id = id
         self.videoFileId = videoFileId

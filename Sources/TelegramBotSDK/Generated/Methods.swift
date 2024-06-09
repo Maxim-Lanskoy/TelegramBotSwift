@@ -134,6 +134,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         disableWebPagePreview: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -143,6 +144,7 @@ public extension TelegramBot {
                             "parse_mode": parseMode,
                             "disable_web_page_preview": disableWebPagePreview,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -153,6 +155,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         disableWebPagePreview: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -164,6 +167,7 @@ public extension TelegramBot {
                                 "parse_mode": parseMode,
                                 "disable_web_page_preview": disableWebPagePreview,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -208,6 +212,8 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -217,6 +223,8 @@ public extension TelegramBot {
                             "caption": caption,
                             "parse_mode": parseMode,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
+                            "show_caption_above_media": showCaptionAboveMedia,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -227,6 +235,8 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -238,6 +248,8 @@ public extension TelegramBot {
                                 "caption": caption,
                                 "parse_mode": parseMode,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
+                                "show_caption_above_media": showCaptionAboveMedia,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -255,6 +267,7 @@ public extension TelegramBot {
         title: String? = nil,
         thumb: InputFileOrString? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -268,6 +281,7 @@ public extension TelegramBot {
                             "title": title,
                             "thumb": thumb,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -282,6 +296,7 @@ public extension TelegramBot {
         title: String? = nil,
         thumb: InputFileOrString? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -297,6 +312,7 @@ public extension TelegramBot {
                                 "title": title,
                                 "thumb": thumb,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -311,6 +327,7 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -321,6 +338,7 @@ public extension TelegramBot {
                             "caption": caption,
                             "parse_mode": parseMode,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -332,6 +350,7 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -344,6 +363,7 @@ public extension TelegramBot {
                                 "caption": caption,
                                 "parse_mode": parseMode,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -362,6 +382,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         supportsStreaming: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -376,6 +397,7 @@ public extension TelegramBot {
                             "parse_mode": parseMode,
                             "supports_streaming": supportsStreaming,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -391,6 +413,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         supportsStreaming: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -407,6 +430,7 @@ public extension TelegramBot {
                                 "parse_mode": parseMode,
                                 "supports_streaming": supportsStreaming,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -424,6 +448,8 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -437,6 +463,8 @@ public extension TelegramBot {
                             "caption": caption,
                             "parse_mode": parseMode,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
+                            "show_caption_above_media": showCaptionAboveMedia,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -451,6 +479,8 @@ public extension TelegramBot {
         caption: String? = nil,
         parseMode: ParseMode? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -466,6 +496,8 @@ public extension TelegramBot {
                                 "caption": caption,
                                 "parse_mode": parseMode,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
+                                "show_caption_above_media": showCaptionAboveMedia,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -480,6 +512,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         duration: Int? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Bool? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -490,6 +523,7 @@ public extension TelegramBot {
                             "parse_mode": parseMode,
                             "duration": duration,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -501,6 +535,7 @@ public extension TelegramBot {
         parseMode: ParseMode? = nil,
         duration: Int? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Bool? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -513,6 +548,7 @@ public extension TelegramBot {
                                 "parse_mode": parseMode,
                                 "duration": duration,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -527,6 +563,8 @@ public extension TelegramBot {
         length: Int? = nil,
         thumb: InputFileOrString? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -537,6 +575,8 @@ public extension TelegramBot {
                             "length": length,
                             "thumb": thumb,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
+                            "show_caption_above_media": showCaptionAboveMedia,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -548,6 +588,8 @@ public extension TelegramBot {
         length: Int? = nil,
         thumb: InputFileOrString? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -560,6 +602,8 @@ public extension TelegramBot {
                                 "length": length,
                                 "thumb": thumb,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
+                                "show_caption_above_media": showCaptionAboveMedia,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -571,12 +615,14 @@ public extension TelegramBot {
         chatId: ChatId,
         media: [InputMedia],
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
         return requestSync("sendMediaGroup", defaultParameters["sendMediaGroup"], parameters, [
                             "chat_id": chatId,
                             "media": media,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId])
     }
     
@@ -584,6 +630,7 @@ public extension TelegramBot {
         chatId: ChatId,
         media: [InputMedia],
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         _ parameters: [String: Encodable?] = [:],
         queue: DispatchQueue = .main,
@@ -592,6 +639,7 @@ public extension TelegramBot {
                                 "chat_id": chatId,
                                 "media": media,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId],
                             queue: queue, completion: completion)
     }
@@ -604,6 +652,7 @@ public extension TelegramBot {
         longitude: Float,
         livePeriod: Int? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -613,6 +662,7 @@ public extension TelegramBot {
                             "longitude": longitude,
                             "live_period": livePeriod,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -623,6 +673,7 @@ public extension TelegramBot {
         longitude: Float,
         livePeriod: Int? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -634,6 +685,7 @@ public extension TelegramBot {
                                 "longitude": longitude,
                                 "live_period": livePeriod,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -720,6 +772,7 @@ public extension TelegramBot {
         foursquareId: String? = nil,
         foursquareType: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -732,6 +785,7 @@ public extension TelegramBot {
                             "foursquare_id": foursquareId,
                             "foursquare_type": foursquareType,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -745,6 +799,7 @@ public extension TelegramBot {
         foursquareId: String? = nil,
         foursquareType: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -759,6 +814,7 @@ public extension TelegramBot {
                                 "foursquare_id": foursquareId,
                                 "foursquare_type": foursquareType,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -773,6 +829,7 @@ public extension TelegramBot {
         lastName: String? = nil,
         vcard: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -783,6 +840,7 @@ public extension TelegramBot {
                             "last_name": lastName,
                             "vcard": vcard,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -794,6 +852,7 @@ public extension TelegramBot {
         lastName: String? = nil,
         vcard: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -806,6 +865,7 @@ public extension TelegramBot {
                                 "last_name": lastName,
                                 "vcard": vcard,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -827,6 +887,7 @@ public extension TelegramBot {
         closeDate: Date? = nil,
         isClosed: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -844,6 +905,7 @@ public extension TelegramBot {
                             "close_date": closeDate,
                             "is_closed": isClosed,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -862,6 +924,7 @@ public extension TelegramBot {
         closeDate: Date? = nil,
         isClosed: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -881,6 +944,7 @@ public extension TelegramBot {
                                 "close_date": closeDate,
                                 "is_closed": isClosed,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -892,6 +956,7 @@ public extension TelegramBot {
         chatId: ChatId,
         emoji: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -899,6 +964,7 @@ public extension TelegramBot {
                             "chat_id": chatId,
                             "emoji": emoji,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -907,6 +973,7 @@ public extension TelegramBot {
         chatId: ChatId,
         emoji: String? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -916,6 +983,7 @@ public extension TelegramBot {
                                 "chat_id": chatId,
                                 "emoji": emoji,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -1585,6 +1653,7 @@ public extension TelegramBot {
         messageId: Int? = nil,
         inlineMessageId: String? = nil,
         caption: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         parseMode: ParseMode? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> MessageOrBool? {
@@ -1593,6 +1662,7 @@ public extension TelegramBot {
                             "message_id": messageId,
                             "inline_message_id": inlineMessageId,
                             "caption": caption,
+                            "show_caption_above_media": showCaptionAboveMedia,
                             "parse_mode": parseMode,
                             "reply_markup": replyMarkup])
     }
@@ -1602,6 +1672,7 @@ public extension TelegramBot {
         messageId: Int? = nil,
         inlineMessageId: String? = nil,
         caption: String? = nil,
+        showCaptionAboveMedia: Bool? = nil,
         parseMode: ParseMode? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -1612,6 +1683,7 @@ public extension TelegramBot {
                                 "message_id": messageId,
                                 "inline_message_id": inlineMessageId,
                                 "caption": caption,
+                                "show_caption_above_media": showCaptionAboveMedia,
                                 "parse_mode": parseMode,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -1739,6 +1811,7 @@ public extension TelegramBot {
         chatId: ChatId,
         sticker: InputFileOrString,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -1746,6 +1819,7 @@ public extension TelegramBot {
                             "chat_id": chatId,
                             "sticker": sticker,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -1754,6 +1828,7 @@ public extension TelegramBot {
         chatId: ChatId,
         sticker: InputFileOrString,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -1763,6 +1838,7 @@ public extension TelegramBot {
                                 "chat_id": chatId,
                                 "sticker": sticker,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -2038,7 +2114,7 @@ public extension TelegramBot {
         title: String,
         description: String,
         payload: String,
-        providerToken: String,
+        providerToken: String? = nil,
         startParameter: String,
         currency: String,
         prices: [LabeledPrice],
@@ -2055,6 +2131,7 @@ public extension TelegramBot {
         sendEmailToProvider: Bool? = nil,
         isFlexible: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -2080,6 +2157,7 @@ public extension TelegramBot {
                             "send_email_to_provider": sendEmailToProvider,
                             "is_flexible": isFlexible,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -2089,7 +2167,7 @@ public extension TelegramBot {
         title: String,
         description: String,
         payload: String,
-        providerToken: String,
+        providerToken: String? = nil,
         startParameter: String? = nil,
         currency: String,
         prices: [LabeledPrice],
@@ -2106,6 +2184,7 @@ public extension TelegramBot {
         sendEmailToProvider: Bool? = nil,
         isFlexible: Bool? = nil,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -2133,6 +2212,7 @@ public extension TelegramBot {
                                 "send_email_to_provider": sendEmailToProvider,
                                 "is_flexible": isFlexible,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
@@ -2202,6 +2282,7 @@ public extension TelegramBot {
         chatId: Int64,
         gameShortName: String,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:]) -> Message? {
@@ -2209,6 +2290,7 @@ public extension TelegramBot {
                             "chat_id": chatId,
                             "game_short_name": gameShortName,
                             "disable_notification": disableNotification,
+                            "message_effect_id": messageEffectId,
                             "reply_to_message_id": replyToMessageId,
                             "reply_markup": replyMarkup])
     }
@@ -2217,6 +2299,7 @@ public extension TelegramBot {
         chatId: Int64,
         gameShortName: String,
         disableNotification: Bool? = nil,
+        messageEffectId: String? = nil,
         replyToMessageId: Int? = nil,
         replyMarkup: ReplyMarkup? = nil,
         _ parameters: [String: Encodable?] = [:],
@@ -2226,6 +2309,7 @@ public extension TelegramBot {
                                 "chat_id": chatId,
                                 "game_short_name": gameShortName,
                                 "disable_notification": disableNotification,
+                                "message_effect_id": messageEffectId,
                                 "reply_to_message_id": replyToMessageId,
                                 "reply_markup": replyMarkup],
                             queue: queue, completion: completion)
