@@ -25,4 +25,5 @@ public enum MessageEntityType: String, Codable {
     case spoiler
     case customEmoji = "custom_emoji"
     case blockquote
+    case expandableBlockquote = "expandable_blockquote"
 }
